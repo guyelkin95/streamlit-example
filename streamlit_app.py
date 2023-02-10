@@ -1,38 +1,46 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
 import streamlit as st
+import tensorflow as tf
+from tensorflow import keras
+import requests
+import numpy as np
 
-"""
-# Welcome to Streamlit!
+#Title
+st.title("Image Classification")
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
+#load model, set cache to prevent reloading
+@st.cache(allow_output_mutation=True)
+def load_model():
+    model=tf.keras.models.load_model('models/cifar10.h5')
+    return model
 
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+with st.spinner("Loading Model...."):
+    model=load_model()
+    
+#classes for CIFAR-10 dataset
+classes=["airplane","automobile","bird","cat","deer","dog","frog","horse","ship","truck"]
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+# image preprocessing
+def load_image(image):
+    img=tf.image.decode_jpeg(image,channels=3)
+    img=tf.cast(img,tf.float32)
+    img/=255.0
+    img=tf.image.resize(img,(28,28))
+    img=tf.expand_dims(img,axis=0)
+    return img
 
+#Get image URL from user
+image_path=st.text_input("Enter Image URL to classify...","https://media.istockphoto.com/photos/passenger-airplane-flying-above-clouds-during-sunset-picture-id155439315?k=20&m=155439315&s=612x612&w=0&h=BvXCpRLaP5h1NnvyYI_2iRtSM0Xsz2jQhAmZ7nA7abA=")
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
-
-    Point = namedtuple('Point', 'x y')
-    data = []
-
-    points_per_turn = total_points / num_turns
-
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
-
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+#Get image from URL and predict
+if image_path:
+    try:
+        content=requests.get(image_path).content
+        st.write("Predicting Class...")
+        with st.spinner("Classifying..."):
+            img_tensor=load_image(content)
+            pred=model.predict(img_tensor)
+            pred_class=classes[np.argmax(pred)]
+            st.write("Predicted Class:",pred_class)
+            st.image(content,use_column_width=True)
+    except:
+        st.write("Invalid URL")
