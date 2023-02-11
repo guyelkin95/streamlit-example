@@ -7,6 +7,7 @@ from PIL import Image
 
 st.markdown('<div dir=rtl>', unsafe_allow_html=True)
 #Title
+st.markdown('<h1 dir=rtl>זיהוי תמונות - המודל של המורה תומר</h1>', unsafe_allow_html=True)
 st.title("זיהוי תמונות - המודל של המורה תומר")
 st.subheader('אני יודע לזהות לפעמים: מטוס, מכונית, ציפור, חתול, צבי, כלב, צפרדע, סוס, אוניה, משאית ותלמידי תיכון')
 
