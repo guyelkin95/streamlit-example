@@ -57,7 +57,7 @@ if upload is not None:
   p = np.argmax(p, axis=1)
 
   c1.header('Input Image')
-  c1.image(fileImage)
+  c1.image(upload)
   c2.header('Output')
   c2.subheader('Predicted class :')
   c2.write(classes[p[0]])
