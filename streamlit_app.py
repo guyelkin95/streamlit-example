@@ -49,11 +49,14 @@ if image_path:
 upload= st.file_uploader('העלאת תמונה', type=['png','jpg'])
 c1, c2= st.columns(2)
 if upload is not None:
-  im= Image.open(upload)
-  img= np.asarray(im)
-  image= cv2.resize(img,(224, 224))
-  img= preprocess_input(image)
-  img= np.expand_dims(img, 0)
+  num_px = 32
+  fileImage = Image.open(upload).convert("RGB").resize([num_px, num_px], Image.ANTIALIAS)
+  image = np.array(fileImage)
+  image = image / 255.0
+  p = model.predict(image.reshape(1, 32, 32, 3))
+
   c1.header('Input Image')
-  c1.image(im)
-  c1.write(img.shape)
+  c1.image(fileImage)
+  c2.header('Output')
+  c2.subheader('Predicted class :')
+  c2.write(classes[p[0]])
