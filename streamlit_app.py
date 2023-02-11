@@ -24,7 +24,7 @@ def load_image(image):
     img=tf.image.decode_jpeg(image,channels=3)
     img=tf.cast(img,tf.float32)
     img/=255.0
-    img=tf.image.resize(img,(28,28))
+    img=tf.image.resize(img,(32,32))
     img=tf.expand_dims(img,axis=0)
     return img
 
