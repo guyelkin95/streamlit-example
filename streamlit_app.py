@@ -8,7 +8,7 @@ import numpy as np
 st.title("Image Classification")
 
 #load model, set cache to prevent reloading
-@st.cache(allow_output_mutation=True)
+@st.cache_resource
 def load_model():
     model=tf.keras.models.load_model('models/cifar10.h5')
     return model
