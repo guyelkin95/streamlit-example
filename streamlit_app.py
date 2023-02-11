@@ -5,6 +5,7 @@ import requests
 import numpy as np
 from PIL import Image
 
+st.markdown('<div dir=rtl>', unsafe_allow_html=True)
 #Title
 st.title("זיהוי תמונות - המודל של המורה תומר")
 st.subheader('אני יודע לזהות לפעמים: מטוס, מכונית, ציפור, חתול, צבי, כלב, צפרדע, סוס, אוניה, משאית ותלמידי תיכון')
@@ -62,3 +63,5 @@ if upload is not None:
   c2.header('Output')
   c2.subheader('התוצאה')
   c2.write(classes[p[0]])
+
+st.markdown('</div>', unsafe_allow_html=True)
