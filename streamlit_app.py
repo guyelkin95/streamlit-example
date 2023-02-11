@@ -3,9 +3,10 @@ import tensorflow as tf
 from tensorflow import keras
 import requests
 import numpy as np
+from PIL import Image
 
 #Title
-st.title("Image Classification")
+st.title("זיהוי תמונות - המודל של המורה תומר")
 
 #load model, set cache to prevent reloading
 @st.cache_resource
@@ -29,7 +30,7 @@ def load_image(image):
     return img
 
 #Get image URL from user
-image_path=st.text_input("Enter Image URL to classify...","https://static.theprint.in/wp-content/uploads/2022/11/Feature-Image-53.png")
+image_path=st.text_input("הכניסו לינק לתמונה","https://static.theprint.in/wp-content/uploads/2022/11/Feature-Image-53.png")
 
 #Get image from URL and predict
 if image_path:
@@ -43,4 +44,16 @@ if image_path:
             st.write("Predicted Class:",pred_class)
             st.image(content,use_column_width=True)
     except:
-        st.write("Invalid URL")
+        st.write("Error")
+
+upload= st.file_uploader('העלאת תמונה', type=['png','jpg'])
+c1, c2= st.columns(2)
+if upload is not None:
+  im= Image.open(upload)
+  img= np.asarray(im)
+  image= cv2.resize(img,(224, 224))
+  img= preprocess_input(image)
+  img= np.expand_dims(img, 0)
+  c1.header('Input Image')
+  c1.image(im)
+  c1.write(img.shape)
