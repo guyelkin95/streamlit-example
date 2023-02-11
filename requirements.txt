@@ -4,4 +4,4 @@ streamlit
 numpy
 matplotlib
 tensorflow
-PIL
+pillow
