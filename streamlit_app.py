@@ -5,11 +5,9 @@ import requests
 import numpy as np
 from PIL import Image
 
-st.markdown('<div dir=rtl>', unsafe_allow_html=True)
 #Title
 st.markdown('<h1 dir=rtl>זיהוי תמונות - המודל של המורה תומר</h1>', unsafe_allow_html=True)
-st.title("זיהוי תמונות - המודל של המורה תומר")
-st.subheader('אני יודע לזהות לפעמים: מטוס, מכונית, ציפור, חתול, צבי, כלב, צפרדע, סוס, אוניה, משאית ותלמידי תיכון')
+st.markdown('<p dir=rtl>אני יודע לזהות לפעמים: מטוס, מכונית, ציפור, חתול, צבי, כלב, צפרדע, סוס, אוניה, משאית ותלמידי תיכון</p>', unsafe_allow_html=True)
 
 #load model, set cache to prevent reloading
 @st.cache_resource
@@ -39,12 +37,12 @@ image_path=st.text_input("הכניסו לינק לתמונה","https://static.th
 if image_path:
     try:
         content=requests.get(image_path).content
-        st.write("Predicting Class...")
+        st.write("מזהה...")
         with st.spinner("Classifying..."):
             img_tensor=load_image(content)
             pred=model.predict(img_tensor)
             pred_class=classes[np.argmax(pred)]
-            st.write("Predicted Class:",pred_class)
+            st.write("התוצאה",pred_class)
             st.image(content,use_column_width=True)
     except:
         st.write("Error")
