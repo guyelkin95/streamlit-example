@@ -3,4 +3,5 @@ pandas
 streamlit
 numpy
 matplotlib
-tensorflow==2.10.0
+tensorflow
+PIL
