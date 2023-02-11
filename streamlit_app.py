@@ -19,7 +19,7 @@ with st.spinner("Loading Model...."):
     model=load_model()
     
 #classes for CIFAR-10 dataset
-classes=["airplane","automobile","bird","cat","deer","dog","frog","horse","ship","truck"]
+classes=["מטוס","מכונית","ציפור","חתול","צבי","כלב","צפרדע","סוס","אוניה","משאית"]
 
 # image preprocessing
 def load_image(image):
