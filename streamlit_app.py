@@ -54,6 +54,7 @@ if upload is not None:
   image = np.array(fileImage)
   image = image / 255.0
   p = model.predict(image.reshape(1, 32, 32, 3))
+  p = np.argmax(p, axis=1)
 
   c1.header('Input Image')
   c1.image(fileImage)
