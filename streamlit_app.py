@@ -7,6 +7,7 @@ from PIL import Image
 
 #Title
 st.title("זיהוי תמונות - המודל של המורה תומר")
+st.subheader('אני יודע לזהות לפעמים: מטוס, מכונית, ציפור, חתול, צבי, כלב, צפרדע, סוס, אוניה, משאית ותלמידי תיכון')
 
 #load model, set cache to prevent reloading
 @st.cache_resource
@@ -56,8 +57,8 @@ if upload is not None:
   p = model.predict(image.reshape(1, 32, 32, 3))
   p = np.argmax(p, axis=1)
 
-  c1.header('Input Image')
+  c1.header('התמונה')
   c1.image(upload)
   c2.header('Output')
-  c2.subheader('Predicted class :')
+  c2.subheader('התוצאה')
   c2.write(classes[p[0]])
