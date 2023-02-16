@@ -42,7 +42,7 @@ if image_path:
         st.write("מזהה...")
         with st.spinner("Classifying..."):
             img_tensor=load_image(content)
-            pred=model.predict(img_tensor)
+            pred=model(img_tensor)
             pred_class=classes[np.argmax(pred)]
             st.write("התוצאה",pred_class)
             st.image(content,use_column_width=True)
@@ -56,7 +56,7 @@ if upload is not None:
   fileImage = Image.open(upload).convert("RGB").resize([num_px, num_px], Image.ANTIALIAS)
   image = np.array(fileImage)
   image = image / 255.0
-  p = model.predict(image.reshape(1, 32, 32, 3))
+  p = model(image.reshape(1, 32, 32, 3))
   p = np.argmax(p, axis=1)
 
   c1.header('התמונה')
