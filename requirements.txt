@@ -5,5 +5,3 @@ numpy
 matplotlib
 tensorflow
 pillow
-gluoncv
-mxnet
