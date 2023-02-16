@@ -31,7 +31,7 @@ def load_image(image):
     return img
 
 #Get image URL from user
-image_path=st.text_input("הכניסו לינק לתמונה","https://www.akc.org/wp-content/themes/akc/component-library/assets/img/welcome.jpg")
+image_path=st.text_input("הכניסו לינק לתמונה","https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg")
 
 #Get image from URL and predict
 if image_path:
