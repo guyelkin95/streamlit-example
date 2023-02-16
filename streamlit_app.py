@@ -4,6 +4,7 @@ from tensorflow import keras
 import requests
 import numpy as np
 from PIL import Image
+from gluoncv.model_zoo import get_model
 
 #Title
 st.markdown('<h1 dir=rtl>זיהוי תמונות - המודל של המורה תומר</h1>', unsafe_allow_html=True)
@@ -16,7 +17,8 @@ def load_model():
     return model
 
 with st.spinner("Loading Model...."):
-    model=load_model()
+    # model=load_model()
+    model = get_model('cifar_resnet110_v1', classes=10, pretrained=True)
     
 #classes for CIFAR-10 dataset
 classes=["מטוס","מכונית","ציפור","חתול","צבי","כלב","צפרדע","סוס","אוניה","משאית"]
