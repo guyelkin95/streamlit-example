@@ -4,7 +4,6 @@ from tensorflow import keras
 import requests
 import numpy as np
 from PIL import Image
-from gluoncv.model_zoo import get_model
 
 #Title
 st.markdown('<h1 dir=rtl>זיהוי תמונות - המודל של המורה תומר</h1>', unsafe_allow_html=True)
@@ -17,8 +16,7 @@ def load_model():
     return model
 
 with st.spinner("Loading Model...."):
-    # model=load_model()
-    model = get_model('cifar_resnet110_v1', classes=10, pretrained=True)
+    model=load_model()
     
 #classes for CIFAR-10 dataset
 classes=["מטוס","מכונית","ציפור","חתול","צבי","כלב","צפרדע","סוס","אוניה","משאית"]
@@ -42,7 +40,7 @@ if image_path:
         st.write("מזהה...")
         with st.spinner("Classifying..."):
             img_tensor=load_image(content)
-            pred=model(img_tensor)
+            pred=model.predict(img_tensor)
             pred_class=classes[np.argmax(pred)]
             st.write("התוצאה",pred_class)
             st.image(content,use_column_width=True)
@@ -56,7 +54,7 @@ if upload is not None:
   fileImage = Image.open(upload).convert("RGB").resize([num_px, num_px], Image.ANTIALIAS)
   image = np.array(fileImage)
   image = image / 255.0
-  p = model(image.reshape(1, 32, 32, 3))
+  p = model.predict(image.reshape(1, 32, 32, 3))
   p = np.argmax(p, axis=1)
 
   c1.header('התמונה')
