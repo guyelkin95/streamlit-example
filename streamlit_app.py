@@ -51,7 +51,7 @@ upload= st.file_uploader('העלאת תמונה', type=['png','jpg'])
 c1, c2= st.columns(2)
 if upload is not None:
   num_px = 32
-  fileImage = Image.open(upload).convert("RGB").resize([num_px, num_px], Image.ANTIALIAS)
+  fileImage = Image.open(upload).convert("RGB").resize([num_px, num_px], Image.LANCZOS)
   image = np.array(fileImage)
   image = image / 255.0
   p = model.predict(image.reshape(1, 32, 32, 3))
