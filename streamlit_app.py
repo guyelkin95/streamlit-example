@@ -12,7 +12,7 @@ st.markdown('<p dir=rtl>אני יודע לזהות לפעמים: מטוס, מכ�
 #load model, set cache to prevent reloading
 @st.cache_resource
 def load_model():
-    model=tf.keras.models.load_model('models/cifar10.h5')
+    model=tf.keras.models.load_model('models/cifar10.h5')    # <== Path to the saved model in your drive
     return model
 
 with st.spinner("Loading Model...."):
